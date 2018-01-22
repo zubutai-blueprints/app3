@@ -6,7 +6,15 @@
       "name": "backup-server",
       "template": "ubuntu16",
       "peer_group": "HTTP-GROUP",
-      "size": "${backupContainerType}"
+      "size": "${backupContainerType}",
+        "expose": [
+        {
+          "protocol": "tcp",
+          "domain": "${domain}",
+          "port_int": "8065",
+          "port_ext": "8088"
+        }
+]
     },
      {
       "name": "backup-server1",
