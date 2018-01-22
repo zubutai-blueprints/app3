@@ -1,0 +1,6 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: exec shell
+      shell: echo "{{msg}}" >> {{path}}/my_message.log
