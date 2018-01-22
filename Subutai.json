@@ -34,7 +34,7 @@
         "value" : "My message"
       }  
     ],
-    "playbook": "https://github.com/platium/simple-bleprint/archive/master.zip",
+    "playbook": "https://github.com/platium/app3/archive/master.zip",
     "script": "main.yml",
     "groups": [
       {
