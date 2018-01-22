@@ -1,0 +1,78 @@
+{
+  "name": "${environmentName}",
+  "description": "Environment configuration test blueprint",
+  "nodes": [
+    {
+      "name": "backup-server",
+      "template": "ubuntu16",
+      "peer_group": "HTTP-GROUP",
+      "size": "${backupContainerType}"
+    },
+     {
+      "name": "backup-server1",
+      "template": "ubuntu16",
+      "peer_group": "HTTP-GROUP",
+      "size": "${backupContainerType1}"
+    }
+  ],
+  "peerGroups": [
+    {
+      "name": "HTTP-GROUP",
+      "pricingPref": {
+        "maxPrice": "${maxPrice}"
+      }
+    }
+  ],
+    "configuration": {
+    "arguments": [
+      {
+        "name" : "path",
+        "value" : "${path}"
+      },
+      {
+        "name" : "msg",
+        "value" : "My message"
+      }  
+    ],
+    "playbook": "https://github.com/platium/simple-bleprint/archive/master.zip",
+    "script": "main.yml",
+    "groups": [
+      {
+        "name": "db",
+        "nodes_name": [
+          "backup-server"
+        ]
+      }
+    ]
+  },
+  "backupContainerType": {
+    "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
+    "type": "enum",
+    "default": "SMALL",
+    "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+  },
+   "backupContainerType1": {
+    "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
+    "type": "enum",
+    "default": "SMALL",
+    "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+  },
+  "environmentName": {
+    "description": "Enter environment name",
+    "type": "string",
+    "default": "hey man",
+    "validation": "[a-zA-Z0-9]+"
+  },
+  "path": {
+    "description": "Enter path",
+    "type": "string",
+    "default": "/root",
+    "validation": "[a-zA-Z0-9./]+"
+  },
+  "maxPrice": {
+    "description": "Enter the max price",
+    "type": "int",
+    "default": "5.5",
+    "validation": "\\d+\\.\\d+"
+  }
+}
