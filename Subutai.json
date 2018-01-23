@@ -88,5 +88,9 @@
     "type": "int",
     "default": "5.5",
     "validation": "\\d+\\.\\d+"
+  },
+  "domain": {
+    "description": "Select your domain",
+    "type": "domain"
   }
 }
