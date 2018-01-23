@@ -19,7 +19,7 @@
      {
       "name": "backup-server1",
       "template": "ubuntu16",
-      "peer_group": "HTTP-GROUP",
+      "peer_group": "HTTP-GROUP1",
       "size": "${backupContainerType1}"
     }
   ],
@@ -28,6 +28,12 @@
       "name": "HTTP-GROUP",
       "pricingPref": {
         "maxPrice": "${maxPrice}"
+      }
+    },
+    {
+      "name": "HTTP-GROUP1",
+      "pricingPref": {
+        "maxPrice": "${maxPrice1}"
       }
     }
   ],
