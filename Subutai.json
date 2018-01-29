@@ -1,6 +1,6 @@
 {
   "name": "${environmentName}",
-  "description": "Environment configuration test blueprint",
+  "description": "Environment configuration  blueprint",
   "nodes": [
     {
       "name": "backup-server",
