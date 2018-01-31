@@ -1,96 +1,90 @@
 {
-  "name": "${environmentName}",
-  "description": "Environment configuration  blueprint",
-  "nodes": [
+  "name": "${envName}",
+  "description": "mattermost",
+  "version": "1.0.1",
+  "author": "Sydyk",
+  "containers": [
     {
-      "name": "backup-server",
-      "template": "ubuntu16",
-      "peer_group": "HTTP-GROUP",
-      "size": "${backupContainerType}",
-        "expose": [
-        {
-          "protocol": "tcp",
-          "domain": "${domain}",
-          "port_int": "8065",
-          "port_ext": "8088"
-        }
-]
+      "hostname": "mysql",
+      "template": "mysql@280dcda67a67d071970ff838d0331c33c0c04710",
+      "peer-criteria": "HTTP-GROUP",
+      "size": "${mysqlDBtype}"
     },
-     {
-      "name": "backup-server1",
-      "template": "ubuntu16",
-      "peer_group": "HTTP-GROUP1",
-      "size": "${backupContainerType1}"
+    {
+      "hostname": "mattermost",
+      "template": "mattermost@280dcda67a67d071970ff838d0331c33c0c04710",
+      "peer-criteria": "HTTP-GROUP",
+      "size": "${mattermostContainerType}",
+      "port-mapping": [
+        {
+          "protocol": "HTTP",
+          "domain": "${domain}",
+          "internal-port": "8065",
+          "external-port": "80"
+        }
+      ]
     }
   ],
-  "peerGroups": [
+  "peer-criteria": [
     {
       "name": "HTTP-GROUP",
-      "pricingPref": {
-        "maxPrice": "${maxPrice}"
-      }
-    },
-    {
-      "name": "HTTP-GROUP1",
-      "pricingPref": {
-        "maxPrice": "${maxPrice1}"
-      }
+      "max-price": "${maxPeersPrice}"
     }
   ],
-    "configuration": {
+  "ansible-configuration": {
+    "source-url": "https://github.com/platium1/simple-bleprint/archive/master.zip",
+    "ansible-playbook": "main.yml",
     "arguments": [
       {
-        "name" : "path",
-        "value" : "${path}"
-      },
-      {
-        "name" : "msg",
-        "value" : "My message"
-      }  
+        "key": "key1",
+        "value": "value1"
+      }
     ],
-    "playbook": "https://github.com/platium/app3/archive/master.zip",
-    "script": "main.yml",
     "groups": [
       {
         "name": "db",
-        "nodes_name": [
-          "backup-server"
+        "hostnames": [
+          "mysql"
+        ]
+      },
+      {
+        "name": "mattermost",
+        "hostnames": [
+          "mattermost"
         ]
       }
     ]
   },
-  "backupContainerType": {
-    "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
-    "type": "enum",
-    "default": "SMALL",
-    "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-  },
-   "backupContainerType1": {
-    "description": "you can set TINY,SMALL,MEDIUM,LARGE,HUGE",
-    "type": "enum",
-    "default": "SMALL",
-    "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-  },
-  "environmentName": {
-    "description": "Enter environment name",
-    "type": "string",
-    "default": "hey man",
-    "validation": "[a-zA-Z0-9]+"
-  },
-  "path": {
-    "description": "Enter path",
-    "type": "string",
-    "default": "/root",
-    "validation": "[a-zA-Z0-9./]+"
-  },
-  "maxPrice": {
-    "description": "Enter the max price",
-    "type": "int",
-    "default": "5.5",
-    "validation": "\\d+\\.\\d+"
-  },
-  "domain": {
-    "description": "Select your domain",
-    "type": "domain"
+  "user-variables": {
+    "domain": {
+      "description": "Select your domain or create new one",
+      "type": "domain",
+      "default": "mattermost.envs.subutai.cloud",
+      "validation": "[a-zA-Z0-9.-]+"
+    },
+    "mysqlDBtype": {
+      "description": "You can set LARGE,HUGE",
+      "type": "enum",
+      "default": "SMALL",
+      "validation": "LARGE,HUGE"
+    },
+    "mattermostContainerType": {
+      "description": "You can set LARGE,HUGE",
+      "type": "enum",
+      "default": "SMALL",
+      "validation": "LARGE,HUGE"
+    },
+    "maxPeersPrice": {
+      "description": "Enter max price of peer you are looking for",
+      "type": "int",
+      "default": "8080",
+      "validation": "\\d+"
+    },
+    "envName": {
+      "description": "Enter your environment name",
+      "type": "string",
+      "default": "mattermost env",
+      "validation": "[a-zA-Z0-9]+"
+    }
   }
 }
