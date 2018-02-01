@@ -8,7 +8,15 @@
       "hostname": "mysql",
       "template": "ubuntu16",
       "peer-criteria": "HTTP-GROUP",
-      "size": "${mysqlDBtype}"
+      "size": "${mysqlDBtype}",
+      "port-mapping": [
+        {
+          "protocol": "HTTP",
+          "domain": "${domain}",
+          "internal-port": "8065",
+          "external-port": "80"
+        }
+      ]
     }
   ],
   "peer-criteria": [
