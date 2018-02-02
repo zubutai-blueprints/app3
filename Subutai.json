@@ -6,9 +6,23 @@
   "containers": [
     {
       "hostname": "mysql",
-      "template": "ubuntu16",
+      "template": "mysql@280dcda67a67d071970ff838d0331c33c0c04710",
       "peer-criteria": "HTTP-GROUP",
       "size": "${mysqlDBtype}"
+    },
+    {
+      "hostname": "mattermost",
+      "template": "mattermost@280dcda67a67d071970ff838d0331c33c0c04710",
+      "peer-criteria": "HTTP-GROUP",
+      "size": "${mattermostContainerType}",
+      "port-mapping": [
+        {
+          "protocol": "HTTP",
+          "domain": "${domain}",
+          "internal-port": "8065",
+          "external-port": "80"
+        }
+      ]
     }
   ],
   "peer-criteria": [
@@ -31,6 +45,12 @@
         "name": "db",
         "hostnames": [
           "mysql"
+        ]
+      },
+      {
+        "name": "mattermost",
+        "hostnames": [
+          "mattermost"
         ]
       }
     ]
@@ -57,7 +77,7 @@
     "maxPeersPrice": {
       "description": "To search and find the best initial peers for you to select from, enter the maximum GoodWill / hour (GW/h) limit you might be willing to pay while running this application on rented peers? You can still select free peers, your peers, and others based on price before installing the application.",
       "type": "int",
-      "default": "8080",
+      "default": "50",
       "validation": "\\d+"
     },
     "envName": {
