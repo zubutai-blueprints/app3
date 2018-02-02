@@ -28,7 +28,7 @@
   "ansible-configuration": {
     "source-url": "https://github.com/platium1/simple-bleprint/archive/master.zip",
     "ansible-playbook": "main.yml",
-    "arguments": [
+    "extra-vars": [
       {
         "key": "key1",
         "value": "value1"
