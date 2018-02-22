@@ -6,7 +6,7 @@
   "containers":[
     {
       "hostname":"web-apache",
-      "template":"abdysamat-apache@b986652a73f7446b7ea9a9ed4c8100e8ef3079f0",
+      "template":"ubuntu16",
       "peer-criteria":"free peers",
       "size":"TINY",
       "port-mapping":[
