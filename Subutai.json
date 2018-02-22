@@ -1,84 +1,69 @@
 {
   "name": "${envName}",
-  "description": "wordpress",
-  "version": "1.0.1",
-  "author": "Sydyk",
-  "containers": [
+  "description": "example static website",
+  "version": "1.0.0",
+  "author": "github.com/samsonbek",
+  "containers":[
     {
-      "hostname": "ubutnu161",
-      "template": "ubuntu16",
-      "peer-criteria": "HTTP-GROUP",
-      "size": "${mysqlDBtype}"
-    },
-    {
-      "hostname": "ubuntu162",
-      "template": "ubuntu16",
-      "peer-criteria": "HTTP-GROUP",
-      "size": "${wordpressContainerType}",
-      "port-mapping": [
+      "hostname":"web-apache",
+      "template":"abdysamat-apache@b986652a73f7446b7ea9a9ed4c8100e8ef3079f0",
+      "peer-criteria":"free peers",
+      "size":"TINY",
+      "port-mapping":[
         {
-          "protocol": "HTTP",
-          "domain": "${domain}",
-          "internal-port": "80",
-          "external-port": "80"
+          "protocol":"http",
+          "domain":"${domainName}",
+          "external-port":"80",
+          "internal-port":"80"
         }
       ]
     }
   ],
-  "peer-criteria": [
+  "peer-criteria":[
     {
-      "name": "HTTP-GROUP",
-      "max-price": "${maxPeersPrice}"
+      "name": "free peers",
+      "max-price": "0"
     }
   ],
   "ansible-configuration": {
-    "source-url": "https://github.com/platium/simple-bleprint/archive/master.zip",
-    "ansible-playbook": "main.yml",
+    "source-url": "https://github.com/samsonbek/helloworld-bp/archive/master.zip",
+    "ansible-playbook": "main.yaml",
     "extra-vars": [
       {
-        "key": "key1",
-        "value": "value1"
+        "key": "htmlFileName",
+        "value": "${filename}"
+      },
+      {
+        "key": "htmlContent",
+        "value": "test"
       }
     ],
     "groups": [
       {
-        "name": "db",
-        "hostnames": [
-          "ubutnu161"
-        ]
+        "name": "web-group",
+        "hostnames": [ "web-apache" ]
       }
     ]
   },
-  "user-variables": {
-    "domain": {
-      "description": "Select your domain or create new one",
-      "type": "domain",
-      "default": "wordpress.envs.subutai.cloud",
-      "validation": "[a-zA-Z0-9.-]+"
-    },
-    "mysqlDBtype": {
-      "description": "You can set TINY,SMALL,MEDIUM,LARGE,HUGE",
-      "type": "enum",
-      "default": "SMALL",
-      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-    },
-    "wordpressContainerType": {
-      "description": "You can set TINY,SMALL,MEDIUM,LARGE,HUGE",
-      "type": "enum",
-      "default": "SMALL",
-      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-    },
-    "maxPeersPrice": {
-      "description": "To search and find the best initial peers for you to select from, enter the maximum GoodWill / hour (GW/h) limit you might be willing to pay while running this application on rented peers? You can still select free peers, your peers, and others based on price before installing the application.",
-      "type": "int",
-      "default": "50",
-      "validation": "\\d+"
-    },
+  "user-variables":
+  {
     "envName": {
-      "description": "Enter your environment name",
+      "description": "Enter environment name, must container only letters",
       "type": "string",
-      "default": "wordpress env",
+      "default": "HelloWWWorld",
+      "validation": "[a-zA-Z]+"
+    },
+    "domainName": {
+      "description": "Select domain name",
+      "type": "domain",
+      "default": "",
       "validation": "[a-zA-Z0-9]+"
+    },
+    "filename": {
+      "description": "name of file in apache dir",
+      "type": "string",
+      "default": "about.html",
+      "validation": "[a-zA-Z0-9.]+"
     }
   }
 }
