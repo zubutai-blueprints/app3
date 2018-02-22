@@ -1,25 +1,25 @@
 {
   "name": "${envName}",
-  "description": "mattermost",
+  "description": "wordpress",
   "version": "1.0.1",
   "author": "Sydyk",
   "containers": [
     {
-      "hostname": "mysql",
-      "template": "mysql@280dcda67a67d071970ff838d0331c33c0c04710",
+      "hostname": "ubutnu161",
+      "template": "ubuntu16",
       "peer-criteria": "HTTP-GROUP",
       "size": "${mysqlDBtype}"
     },
     {
-      "hostname": "mattermost",
-      "template": "mattermost@280dcda67a67d071970ff838d0331c33c0c04710",
+      "hostname": "ubuntu162",
+      "template": "ubuntu16",
       "peer-criteria": "HTTP-GROUP",
-      "size": "${mattermostContainerType}",
+      "size": "${wordpressContainerType}",
       "port-mapping": [
         {
           "protocol": "HTTP",
           "domain": "${domain}",
-          "internal-port": "8065",
+          "internal-port": "80",
           "external-port": "80"
         }
       ]
@@ -32,7 +32,7 @@
     }
   ],
   "ansible-configuration": {
-    "source-url": "https://github.com/platium1/simple-bleprint/archive/master.zip",
+    "source-url": "https://github.com/platium/simple-bleprint/archive/master.zip",
     "ansible-playbook": "main.yml",
     "extra-vars": [
       {
@@ -44,13 +44,7 @@
       {
         "name": "db",
         "hostnames": [
-          "mysql"
-        ]
-      },
-      {
-        "name": "mattermost",
-        "hostnames": [
-          "mattermost"
+          "ubutnu161"
         ]
       }
     ]
@@ -59,20 +53,20 @@
     "domain": {
       "description": "Select your domain or create new one",
       "type": "domain",
-      "default": "mattermost.envs.subutai.cloud",
+      "default": "wordpress.envs.subutai.cloud",
       "validation": "[a-zA-Z0-9.-]+"
     },
     "mysqlDBtype": {
-      "description": "You can set LARGE,HUGE",
+      "description": "You can set TINY,SMALL,MEDIUM,LARGE,HUGE",
       "type": "enum",
       "default": "SMALL",
-      "validation": "LARGE,HUGE"
+      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
     },
-    "mattermostContainerType": {
-      "description": "You can set LARGE,HUGE",
+    "wordpressContainerType": {
+      "description": "You can set TINY,SMALL,MEDIUM,LARGE,HUGE",
       "type": "enum",
       "default": "SMALL",
-      "validation": "LARGE,HUGE"
+      "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
     },
     "maxPeersPrice": {
       "description": "To search and find the best initial peers for you to select from, enter the maximum GoodWill / hour (GW/h) limit you might be willing to pay while running this application on rented peers? You can still select free peers, your peers, and others based on price before installing the application.",
@@ -83,7 +77,7 @@
     "envName": {
       "description": "Enter your environment name",
       "type": "string",
-      "default": "mattermost env",
+      "default": "wordpress env",
       "validation": "[a-zA-Z0-9]+"
     }
   }
