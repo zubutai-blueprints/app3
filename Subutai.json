@@ -6,7 +6,7 @@
   "containers":[
     {
       "hostname":"web-apache",
-      "template":"ubuntu16",
+      "template":"debian-stretch",
       "peer-criteria":"free peers",
       "size":"TINY"
     }
