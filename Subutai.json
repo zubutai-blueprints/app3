@@ -2,7 +2,8 @@
   "name": "${envName}",
   "description": "example static website",
   "version": "1.0.0",
-  "author": "github.com/samsonbek",
+  "author": "github.com/zubaidullo",
+  "ssh-key": "lth", 
   "containers":[
     {
       "hostname":"web-apache",
