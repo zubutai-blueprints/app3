@@ -6,7 +6,7 @@
   "ssh-key": "lth", 
   "containers":[
     {
-      "hostname":"web-apache",
+      "hostname":"${web-apache}",
       "template":"debian-stretch",
       "peer-criteria":"free peers",
       "size":"TINY"
