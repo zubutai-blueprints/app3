@@ -44,13 +44,13 @@
       "description": "Enter environment name, must container only letters",
       "type": "string",
       "default": "HelloWWWorld",
-      "validation": "."
+      "validation": ".*"
     },
     "domainName": {
       "description": "Select domain name",
       "type": "domain",
       "default": "",
-      "validation": "."
+      "validation": ".*"
     },
     "filename": {
       "description": "name of file in apache dir",
