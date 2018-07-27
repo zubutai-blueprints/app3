@@ -14,8 +14,7 @@
   ],
   "peer-criteria":[
     {
-      "name": "free peers",
-      "max-price": "0"
+      "name": "free peers"
     }
   ],
   "ansible-configuration": {
