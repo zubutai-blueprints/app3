@@ -1,7 +1,7 @@
 {
   "name": "${envName}",
   "description": "example static website",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "github.com/zubaidullo",
   "ssh-key": "lth", 
   "containers":[
